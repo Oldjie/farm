@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class demo {
 
-    @RequestMapping("/")
-    public String index() {
-        return "hello,word!";
-    }
+//    @RequestMapping("/")
+//    public String index() {
+//        return "index.html";
+//    }
 
     @Autowired
     private UserService userService;
