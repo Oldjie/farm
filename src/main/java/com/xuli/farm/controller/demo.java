@@ -21,7 +21,7 @@ public class demo {
 
     @GetMapping("/hello")
     public User hello() {
-        User user = this.userService.queryById(1L);
+        User user = this.userService.queryUserById(1);
         return user;
     }
 }

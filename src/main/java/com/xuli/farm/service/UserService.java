@@ -7,17 +7,19 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class UserService {
+public interface UserService {
 
-    @Autowired
-    private UserMapper userMapper;
+    void register(User user) throws Exception;
 
-    public User queryById(Long id) {
-        return this.userMapper.selectByPrimaryKey(id);
-    }
+    Boolean active(String code);
 
-    @Transactional
-    public void deleteById(Long id) {
-        this.userMapper.deleteByPrimaryKey(id);
-    }
+    User login(User user) throws Exception;
+
+    User queryUserById(int uid);
+
+    Boolean addUser(User user);
+
+    Boolean updateUser(User user);
+
+    Boolean deleteUserById(Integer uid);
 }

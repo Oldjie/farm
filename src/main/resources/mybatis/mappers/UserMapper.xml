@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.xuli.farm.mapper.UserMapper">
+    <select id="queryUserByUserName" resultType="User">
+        SELECT * from tab_user WHERE username=#{username}
+    </select>
+    <insert id="addUser">
+        INSERT INTO  tab_user  (
+       username ,
+       password ,
+       name ,
+       birthday ,
+       sex ,
+       telephone ,
+       email ,
+       status ,
+       code
+      )
+      VALUES
+      (
+         #{username},
+         #{password},
+         #{name},
+         #{birthday},
+         #{sex},
+         #{telephone},
+         #{email},
+         #{status},
+         #{code}
+      );
+    </insert>
+    
+    <update id="active">
+        UPDATE tab_user SET status = 'Y' WHERE status='N' AND code = #{code}
+    </update>
+    
+    <select id="login" resultType="User">
+        SELECT * FROM tab_user WHERE username = #{username} and password = #{password}
+    </select>
+
+</mapper>
