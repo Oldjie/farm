@@ -17,25 +17,16 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpSession;
 
 @RestController
-public class AdminLogin {
+public class AdminController {
 
     @Autowired
     private UserServiceImpl userService;
 
 
-    @GetMapping("login.html")
-    public String login() {
-        return "login";
-    }
 
-    @PostMapping("login")
-    public String toLogin() {
-        return "redirect:index.html";
-    }
-
-    @PostMapping("/admin/login")
+    @PostMapping("/login")
     @ResponseBody
-    public ResultInfo hello(User user, HttpSession session) {
+    public ResultInfo login(User user, HttpSession session) {
         ResultInfo resultInfo = null;
         try {
             User queryUser = userService.login(user);
@@ -56,5 +47,7 @@ public class AdminLogin {
         }
         return resultInfo;
     }
+
+
 
 }

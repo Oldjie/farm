@@ -27,6 +27,7 @@
         <input id="password" name="password" lay-verify="required" placeholder="密码" type="password" class="layui-input">
         <hr class="hr15">
         <input onclick="_login()" type="submit" value="登陆" class="btn btn-primary">
+        <input type="hidden" value="1" id="type" name="type">
         <hr class="hr20">
         <!--登录错误提示消息-->
         <div id="errorMsg" class="alert alert-danger"></div>
@@ -34,37 +35,7 @@
     </form>
 </div>
 
-<script type="text/javascript">
+<script src="js/login.js" charset="utf-8"></script>
 
-    //登陆
-    function _login() {
-
-        //用户名，密码不为空提交异步登录请求
-        var username = $("#username").val();
-        var password = $("#password").val();
-        if (username && password) {
-            //提交异步登录请求
-
-            $.post(
-                "/admin/login",//servlet地址
-                $("#loginForm").serialize(),//表单所有数据
-                function (resultInfo) {
-                    if (resultInfo.flag) {
-                        //登录成功，跳转到首页
-                        location.href = "index.html";
-                    } else {
-                        //失败，显示消息
-                        $("#errorMsg").text(resultInfo.errorMsg);
-                    }
-                },
-                "json"
-            );
-        } else {
-            $("#errorMsg").text("请输入用户名或密码");
-        }
-
-    }
-</script>
-<!-- 底部结束 -->
 </body>
 </html>
