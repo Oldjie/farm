@@ -14,6 +14,10 @@ public class Food {
     private String foodImg;
     private String created;
 
+
+    public Food() {
+    }
+
     public Food(Integer id, String foodName, String foodContent, String foodImg, String created) {
         this.id = id;
         this.foodName = foodName;

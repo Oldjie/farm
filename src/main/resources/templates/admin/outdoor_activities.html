@@ -34,12 +34,12 @@
 
     <div class="header">
 
-        <h1 class="page-title">用户列表</h1>
+        <h1 class="page-title">活动列表</h1>
     </div>
 
     <ul class="breadcrumb">
         <li><a href="index.html">Home</a> <span class="divider">/</span></li>
-        <li class="active">Users</li>
+        <li class="active">activities</li>
     </ul>
 
     <div class="container-fluid">
@@ -66,10 +66,10 @@
                     <tr th:each="activitie :${activities.list}">
                         <td th:text="${activitie.id}"></td>
                         <td th:text="${activitie.title}"></td>
-                        <td th:text="${activitie.productImg}"></td>
+                        <td th:text="${activitie.activitiesImg}"></td>
                         <td th:text="${activitie.created}"></td>
                         <td>
-                            <a th:href="'user.html?uid=' + ${activitie.id}"><i class="icon-pencil"></i></a>
+                            <a th:href="'editActivities.html?uid=' + ${activitie.id}"><i class="icon-pencil"></i></a>
                         </td>
 
                     </tr>

@@ -1,15 +1,14 @@
 package com.xuli.farm.controller;
 
 import com.github.pagehelper.PageInfo;
-import com.xuli.farm.po.Activities;
+import com.xuli.farm.po.*;
 import com.xuli.farm.service.ActivitiesService;
 import com.xuli.farm.service.impl.AboutServiceImpl;
 import com.xuli.farm.service.impl.ActivitiesServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 
 @Controller
@@ -30,5 +29,33 @@ public class ActivitiesController {
     @RequestMapping("admin/add_activities.html")
     public String addActivities(){
         return "admin/add_activities";
+    }
+
+
+    @PostMapping("admin/save_activities.html")
+    @ResponseBody
+    public ResultInfo saveActivities(Activities activities) {
+        ResultInfo resultInfo = null;
+        Boolean flag = activitiesService.insertActivities(activities);
+        resultInfo = new ResultInfo(flag, null, null);
+        return resultInfo;
+
+    }
+
+    @GetMapping("admin/editActivities.html")
+    public String editActivities(Model model, @RequestParam(value = "uid") int uid) {
+        Activities activities = activitiesService.queryActivitiesById(uid);
+        model.addAttribute("activities", activities);
+        return "admin/editActivities";
+
+    }
+
+    @PostMapping("admin/delActivities.html")
+    @ResponseBody
+    public ResultInfo delActivities(Activities activities) {
+        ResultInfo resultInfo = null;
+        Boolean flag = activitiesService.deleteActivitiesById(activities.getId());
+        resultInfo = new ResultInfo(flag, null, null);
+        return resultInfo;
     }
 }

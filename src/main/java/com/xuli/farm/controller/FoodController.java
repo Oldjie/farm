@@ -1,14 +1,16 @@
 package com.xuli.farm.controller;
 
 import com.github.pagehelper.PageInfo;
+import com.xuli.farm.po.Activities;
 import com.xuli.farm.po.Food;
+import com.xuli.farm.po.Product;
+import com.xuli.farm.po.ResultInfo;
 import com.xuli.farm.service.FoodService;
 import com.xuli.farm.service.impl.FoodServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/")
@@ -27,5 +29,36 @@ public class FoodController {
     @RequestMapping("admin/add_food.html")
     public String addFood(){
         return "admin/add_food";
+    }
+
+
+    @PostMapping("admin/save_food.html")
+    @ResponseBody
+    public ResultInfo saveFood(Food food) {
+        ResultInfo resultInfo = null;
+        Boolean flag = foodService.insertFood(food);
+        resultInfo = new ResultInfo(flag, null, null);
+        return resultInfo;
+
+    }
+
+
+
+    @GetMapping("admin/editFood.html")
+    public String editFoods(Model model, @RequestParam(value = "uid") int uid) {
+        Food  food = foodService.queryFoodById(uid);
+        model.addAttribute("food", food);
+        return "admin/editFood";
+
+    }
+
+
+    @PostMapping("admin/delFood.html")
+    @ResponseBody
+    public ResultInfo delFoods(Food food) {
+        ResultInfo resultInfo = null;
+        Boolean flag = foodService.deleteFoodById(food.getId());
+        resultInfo = new ResultInfo(flag, null, null);
+        return resultInfo;
     }
 }

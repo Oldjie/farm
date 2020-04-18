@@ -53,12 +53,12 @@
 
     <div class="header">
 
-        <h1 class="page-title">新建 动态</h1>
+        <h1 class="page-title">新建 商品</h1>
     </div>
 
     <ul class="breadcrumb">
         <li><a href="index.html">Home</a> <span class="divider">/</span></li>
-        <li><a href="News.html">News</a> <span class="divider">/</span></li>
+        <li><a href="Product.html">Product</a> <span class="divider">/</span></li>
         <li class="active">新建</li>
     </ul>
 
@@ -77,10 +77,12 @@
                         <form id="saveForm" method="POST" action="JavaScript:void(0);">
                             <label>商品名称</label>
                             <input id="productName" name="productName" type="text" class="input-xlarge">
-                            <label>商品介绍</label>
-                            <input id="productContent" name="productContent" type="text" class="input-xlarge">
                             <label>商品价格</label>
-                            <textarea id="productPrice" name="productPrice" rows="10" cols="30" class="input-xlarge"></textarea>
+                            <input id="productPrice" name="productPrice" type="text" class="input-xlarge">
+                            <label>商品图片</label>
+                            <input id="productImg" name="productImg" type="text" class="input-xlarge">
+                            <label>商品介绍</label>
+                            <textarea id="productContent" name="productContent" rows="10" cols="30" class="input-xlarge"></textarea>
                             <label>跟新日期</label>
                             <input id="created" name="created" type="date" class="input-xlarge">
                         </form>
@@ -147,11 +149,11 @@
 
         //提交异步请求
         $.post(
-            "save_news.html",
+            "save_product.html",
             $("#saveForm").serialize(),
             function (resultINfo) {
                 if (resultINfo.flag) {
-                    location.href = "users.html";
+                    location.href = "product.html";
 
                 } else {
                     console.log("error")

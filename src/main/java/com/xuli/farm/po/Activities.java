@@ -10,8 +10,19 @@ public class Activities {
     private Integer id;
     private String title;
     private String content;
-    private String activities;
+    private String activitiesImg;
     private String created;
+
+    public Activities() {
+    }
+
+    public Activities(Integer id, String title, String content, String activitiesImg, String created) {
+        this.id = id;
+        this.title = title;
+        this.content = content;
+        this.activitiesImg = activitiesImg;
+        this.created = created;
+    }
 
     public Integer getId() {
         return id;
@@ -37,12 +48,12 @@ public class Activities {
         this.content = content;
     }
 
-    public String getActivities() {
-        return activities;
+    public String getActivitiesImg() {
+        return activitiesImg;
     }
 
-    public void setActivities(String activities) {
-        this.activities = activities;
+    public void setActivitiesImg(String activitiesImg) {
+        this.activitiesImg = activitiesImg;
     }
 
     public String getCreated() {
@@ -50,14 +61,6 @@ public class Activities {
     }
 
     public void setCreated(String created) {
-        this.created = created;
-    }
-
-    public Activities(Integer id, String title, String content, String activities, String created) {
-        this.id = id;
-        this.title = title;
-        this.content = content;
-        this.activities = activities;
         this.created = created;
     }
 }

@@ -33,12 +33,12 @@
 
     <div class="header">
 
-        <h1 class="page-title">用户列表</h1>
+        <h1 class="page-title">美食列表</h1>
     </div>
 
     <ul class="breadcrumb">
         <li><a href="index.html">Home</a> <span class="divider">/</span></li>
-        <li class="active">Users</li>
+        <li class="active">Foods</li>
     </ul>
 
     <div class="container-fluid">
@@ -68,7 +68,7 @@
                         <td th:text="${food.foodImg}"></td>
                         <td th:text="${food.created}"></td>
                         <td>
-                            <a th:href="'user.html?uid=' + ${food.id}"><i class="icon-pencil"></i></a>
+                            <a th:href="'editFood.html?uid=' + ${food.id}"><i class="icon-pencil"></i></a>
                         </td>
 
                     </tr>

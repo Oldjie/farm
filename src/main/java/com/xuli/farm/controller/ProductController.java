@@ -1,15 +1,17 @@
 package com.xuli.farm.controller;
 
 import com.github.pagehelper.PageInfo;
+import com.xuli.farm.dto.RestInfo;
 import com.xuli.farm.po.Activities;
+import com.xuli.farm.po.News;
 import com.xuli.farm.po.Product;
+import com.xuli.farm.po.ResultInfo;
 import com.xuli.farm.service.ProductService;
 import com.xuli.farm.service.impl.ProductServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 
 @Controller
@@ -29,5 +31,35 @@ public class ProductController {
     @RequestMapping("admin/add_product.html")
     public String addProduct(){
         return "admin/add_product";
+    }
+
+
+    @PostMapping("admin/save_product.html")
+    @ResponseBody
+    public ResultInfo saveProduct(Product product){
+        ResultInfo resultInfo = null;
+        Boolean flag = productService.insertProduct(product);
+        resultInfo = new ResultInfo(flag, null, null);
+        return resultInfo;
+    }
+
+
+
+    @GetMapping("admin/editProduct.html")
+    public String editNews(Model model, @RequestParam(value = "uid") int uid) {
+        Product product = productService.queryProductById(uid);
+        model.addAttribute("product", product);
+        return "admin/editProduct";
+
+    }
+
+
+    @PostMapping("admin/delProduct.html")
+    @ResponseBody
+    public ResultInfo delUser(Product product) {
+        ResultInfo resultInfo = null;
+        Boolean flag = productService.deleteProductById(product.getId());
+        resultInfo = new ResultInfo(flag, null, null);
+        return resultInfo;
     }
 }

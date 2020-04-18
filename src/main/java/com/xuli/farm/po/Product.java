@@ -3,6 +3,8 @@ package com.xuli.farm.po;
 
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.math.BigDecimal;
+import java.util.Date;
 
 @Table(name = "product")
 public class Product {
@@ -13,6 +15,19 @@ public class Product {
     private String productPrice;
     private String productImg;
     private String created;
+
+
+    public Product() {
+    }
+
+    public Product(Integer id, String productName, String productContent, String productPrice, String productImg, String created) {
+        this.id = id;
+        this.productName = productName;
+        this.productContent = productContent;
+        this.productPrice = productPrice;
+        this.productImg = productImg;
+        this.created = created;
+    }
 
     public Integer getId() {
         return id;
@@ -59,15 +74,6 @@ public class Product {
     }
 
     public void setCreated(String created) {
-        this.created = created;
-    }
-
-    public Product(Integer id, String productName, String productContent, String productPrice, String productImg, String created) {
-        this.id = id;
-        this.productName = productName;
-        this.productContent = productContent;
-        this.productPrice = productPrice;
-        this.productImg = productImg;
         this.created = created;
     }
 }

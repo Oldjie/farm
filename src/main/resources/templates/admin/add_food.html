@@ -53,12 +53,12 @@
 
     <div class="header">
 
-        <h1 class="page-title">新建 动态</h1>
+        <h1 class="page-title">新建 美食</h1>
     </div>
 
     <ul class="breadcrumb">
         <li><a href="index.html">Home</a> <span class="divider">/</span></li>
-        <li><a href="News.html">News</a> <span class="divider">/</span></li>
+        <li><a href="restaurant_food.html">Food</a> <span class="divider">/</span></li>
         <li class="active">新建</li>
     </ul>
 
@@ -78,7 +78,7 @@
                             <label>名称</label>
                             <input id="foodName" name="foodName" type="text" class="input-xlarge">
                             <label>介绍</label>
-                            <textarea id="fooContent" name="fooContent" rows="10" cols="30" class="input-xlarge"></textarea>
+                            <textarea id="foodContent" name="foodContent" rows="10" cols="30" class="input-xlarge"></textarea>
                             <label>图片路径</label>
                             <input id="foodImg" name="foodImg" type="text" class="input-xlarge">
                             <label>跟新日期</label>
@@ -147,11 +147,11 @@
 
         //提交异步请求
         $.post(
-            "save_news.html",
+            "save_food.html",
             $("#saveForm").serialize(),
             function (resultINfo) {
                 if (resultINfo.flag) {
-                    location.href = "users.html";
+                    location.href = "restaurant_food.html";
 
                 } else {
                     console.log("error")

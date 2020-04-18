@@ -22,4 +22,32 @@ public class ProductServiceImpl implements ProductService {
         PageInfo<Product> pageInfo = new PageInfo<>(products);
         return pageInfo;
     }
+
+    @Override
+    public Boolean insertProduct(Product product) {
+        int i = productMapper.insert(product);
+
+        if (i == 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    @Override
+    public Product queryProductById(int uid) {
+        Product product = productMapper.selectByPrimaryKey(uid);
+        return product;
+    }
+
+    @Override
+    public Boolean deleteProductById(Integer id) {
+        int i = productMapper.deleteByPrimaryKey(id);
+
+        if (i == 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 }
