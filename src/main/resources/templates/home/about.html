@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<head>
+
+    <meta charset="utf-8">
+    <title>农庄</title>
+
+    <link rel="stylesheet" href="css/zerogrid.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <link href="../font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <link rel="stylesheet" href="css/menu.css">
+    <script src="../js/jquery1111.min.js" type="text/javascript"></script>
+    <script src="../js/script.js"></script>
+
+    <link href="../owl-carousel/owl.carousel.css" rel="stylesheet">
+
+
+    <script src="../js/html5.js"></script>
+    <script src="../js/css3-mediaqueries.js"></script>
+
+</head>
+
+<body class="single-page">
+<div class="wrap-body">
+
+    <div id="header"></div>
+    <div id="cssmenu" class="align-center">
+        <ul>
+            <li><a href="index.html"><span>首页</span></a></li>
+            <li><a href="news.html"><span>农庄动态</span></a></li>
+            <li class="has-sub"><a href="archive.html"><span>产品与服务</span></a>
+                <ul>
+                    <li class="has-sub"><a href="#"><span>戶外活动</span></a>
+                        <ul>
+                            <li><a href="#"><span>Sub Item</span></a></li>
+                            <li class="last"><a href="#"><span>Sub Item</span></a></li>
+                        </ul>
+                    </li>
+                    <li class="has-sub"><a href="#"><span>餐厅与美食</span></a>
+                        <ul>
+                            <li><a href="#"><span>Sub Item</span></a></li>
+                            <li class="last"><a href="#"><span>Sub Item</span></a></li>
+                        </ul>
+                    </li>
+                    <li class="has-sub"><a href="#"><span>农家产品</span></a>
+                        <ul>
+                            <li><a href="#"><span>Sub Item</span></a></li>
+                            <li class="last"><a href="#"><span>Sub Item</span></a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li class="active"><a href="about.html"><span>关于</span></a></li>
+
+        </ul>
+    </div>
+
+    <section id="container">
+        <div class="wrap-container">
+            <div id="main-content">
+                <div class="wrap-content">
+                    <div class="row">
+                        <article class="single-post zerogrid">
+                            <div class="row wrap-post">
+                                <div class="entry-header">
+                                    <span class="time" th:utext="${about.date}"></span>
+                                    <h2 class="entry-title" th:utext="${about.title}"></h2>
+                                    <span class="cat-links" th:utext="${about.subTitle}"></span>
+                                </div>
+                                <div class="post-thumbnail-wrap">
+                                    <img src="../images/background_6.jpg">
+                                </div>
+                                <div class="entry-content" th:utext="${about.content}">
+                                    <div class="excerpt">
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                        <div class="zerogrid">
+                            <div class="comments-are">
+                                <div id="comment">
+                                    <h3>留言 意见</h3>
+
+                                    <form name="comment_form" id="comment_form" method="post" action="JavaScript:void(0);">
+                                        <label>
+                                            <span>您想说的话:</span>
+                                            <textarea name="message" id="message"></textarea>
+                                        </label>
+
+                                        <center><input class="sendButton" type="submit" name="submitcomment"
+                                                       value="提交" onclick="_submit()"></center>
+                                        <div id="errorMsg" ></div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <div id="footer"></div>
+</div>
+</body>
+<script type="text/javascript" src="js/include.js"></script>
+<!--提交留言-->
+<script>
+    function _submit() {
+
+        var username = $("#message").val();
+        if (username) {
+
+            $.post(
+                "feedback",
+                $("#comment_form").serialize(),
+                function (resultInfo) {
+                    if (resultInfo.flag) {
+                        $("#errorMsg").text(resultInfo.errorMsg);
+                    } else {
+                        $("#errorMsg").text(resultInfo.errorMsg);
+                    }
+                },
+                "json"
+            );
+        }
+
+    }
+</script>
+</html>

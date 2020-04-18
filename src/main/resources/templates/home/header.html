@@ -1,0 +1,92 @@
+<script src="../js/jquery-3.3.1.js"></script>
+<link rel="stylesheet" href="../css/common.css">
+<script type="text/javascript">
+    //页面加载时获取登录的用户数据
+    $(function () {
+        $(".login").hide();//登录信息隐藏
+        //请求servlet，获取登录用户数据
+
+        $.post(
+            "user/queryInfoByLoginUser",
+            {action: "getLoginUserData"},//请求方法
+            function (resultInfo) {
+                if (resultInfo.flag) {
+                    //已登录
+                    $(".login_out").hide();//没有登录信息隐藏
+                    $(".login").html(" <span>欢迎回来，" + resultInfo.data + "</span>\n" +
+                        "                <a href=\"user/loginOut\">退出</a>").show();
+                } else {
+                    //未登录
+                    $(".login_out").show();//没有登录信息显示
+                    $(".login").hide();//登录信息隐藏
+                }
+            },
+            "json"
+        );
+    });
+
+</script>
+<!-- 头部 start -->
+<header id="header">
+    <div class="logo">
+        <a href="#">滁州绿怡农家乐</a>
+
+    </div>
+    <div>
+        <span>轻松娱乐 & 放松心情</span>
+    </div>
+    <div class="shortcut">
+        <!-- 未登录状态  -->
+        <div class="login_out">
+            <a href="login.html">登录</a>
+            <a href="register.html">注册</a>
+        </div>
+        <!-- 登录状态  -->
+        <div class="login">
+
+            <span>欢迎回来，admin</span>
+            <a href="myfavorite.html" class="collection">我的收藏</a>
+            <a href="javascript:;">退出</a>
+        </div>
+    </div>
+    
+</header>
+<!-- 头部 end -->
+<script type="text/javascript" src="../js/getParameter.js"></script>
+<script type="text/javascript">
+    //加载事件
+    $(function () {
+        //发出异步请求，获取分类列表数据
+        var url = "category/queryCategoryList";
+        var data = {action: "findAllCategory"};
+        var callback = function (jsonData) {
+            if (jsonData && jsonData.length > 0) {
+                //正常获取结果
+                //拼接导航菜单
+                var html = "<li class=\"nav-active\"><a href=\"index.html\">首页</a></li>";
+                //循环分类列表数据，拼接每个导航菜单
+                for (category of jsonData) {
+                    html += "<li><a href=\"route_list.html?cid=" + category.cid + "\">" + category.cname + "</a></li>";
+                }
+                html += "<li><a href=\"favoriterank.html\">收藏排行榜</a></li>";
+                //更新到具体位置
+                $(".navitem .nav").html(html);
+            } else {
+                //发生异常
+                alert(jsonData.errorMsg);
+            }
+        };
+        var type = "json";
+        $.post(url, callback, type);
+
+
+        //获取url上的rname,更新到搜索输入框里面
+        var rname = decodeURI(getParameter("rname"));
+        if (rname && rname != "null") {
+            //更新页面上
+            $("#content").val(rname);
+        }
+    });
+
+
+</script>

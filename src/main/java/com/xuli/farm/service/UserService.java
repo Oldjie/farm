@@ -1,10 +1,11 @@
 package com.xuli.farm.service;
 
-import com.xuli.farm.mapper.UserMapper;
+import com.github.pagehelper.PageInfo;
+import com.xuli.farm.po.PageBean;
 import com.xuli.farm.po.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 public interface UserService {
@@ -17,9 +18,15 @@ public interface UserService {
 
     User queryUserById(int uid);
 
+    PageInfo<User> queryUserAll(int pageNum, int pageSize);
+
     Boolean addUser(User user);
 
     Boolean updateUser(User user);
 
     Boolean deleteUserById(Integer uid);
+
+    List<User> getUserList(int pageNum, int pageSize);
+
+    List<User> selectAll();
 }

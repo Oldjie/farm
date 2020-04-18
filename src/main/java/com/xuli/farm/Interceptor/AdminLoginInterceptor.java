@@ -13,12 +13,12 @@ public class AdminLoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         HttpSession session = request.getSession();
-        if (session.getAttribute("user") != null) {
+            if (session.getAttribute("user") != null) {
             return true;
         }
 
 //            跳转到登录页
-        String url = "/admin_login.html";
+        String url = "/admin/sign_in.html";
         response.sendRedirect(url);
         return false;
 

@@ -43,6 +43,29 @@ public class UserController {
         return "redirect:/index.html";
     }
 
+    @PostMapping("/login")
+    @ResponseBody
+    public ResultInfo login(User user, HttpSession session) {
+        ResultInfo resultInfo = null;
+        try {
+            User queryUser = userService.login(user);
+            session.setAttribute("user", queryUser);
+
+            resultInfo = new ResultInfo(true, null, null);
+
+
+        } catch (UserNameOrPasswordErrorException e) {
+            resultInfo = new ResultInfo(false, null, e.getMessage());
+        } catch (UserNoActiveException e) {
+            e.printStackTrace();
+            resultInfo = new ResultInfo(false, null, e.getMessage());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            resultInfo = new ResultInfo(false, null, "服务器忙请稍后重试！");
+        }
+        return resultInfo;
+    }
 
     @PostMapping("register")
     @ResponseBody
@@ -74,14 +97,13 @@ public class UserController {
     }
 
 
-
     @RequestMapping("active")
-    public String active(@RequestParam("code")String code){
+    public String active(@RequestParam("code") String code) {
         try {
             Boolean flag = userService.active(code);
-            if(flag){
-                return "redirect:/login.html" ;
-            }else {
+            if (flag) {
+                return "redirect:/login.html";
+            } else {
                 return "redirect:/error/500.html";
             }
         } catch (Exception e) {

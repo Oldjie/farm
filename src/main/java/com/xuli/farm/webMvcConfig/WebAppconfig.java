@@ -15,15 +15,11 @@ public class WebAppconfig implements WebMvcConfigurer {
         InterceptorRegistration registration = registry.addInterceptor(new AdminLoginInterceptor());
         registration.addPathPatterns("/admin/**");                      //所有路径都被拦截
         registration.excludePathPatterns(                         //添加不拦截路径
-                "/admin_login.html",            //登录
-                "/admin/login",            //登录
-                "/admin/**/*.js",              //js静态资源
-                "/admin/**/*.css",             //css静态资源
-                "/admin/**/*.woff",
-                "/admin/**/*.ttf",
-                "/admin/**/*.png"
-
-
+                "/admin/sign_in.html",
+                "/admin/reset-password.html",
+                "/admin/login",
+                "/admin/**/*.js",
+                "/admin/**/*.css"
         );
     }
 }

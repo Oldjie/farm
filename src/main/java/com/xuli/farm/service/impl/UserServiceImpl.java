@@ -1,9 +1,12 @@
 package com.xuli.farm.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.xuli.farm.exception.UserNameNotNullException;
 import com.xuli.farm.exception.UserNameOrPasswordErrorException;
 import com.xuli.farm.exception.UserNoActiveException;
 import com.xuli.farm.mapper.UserMapper;
+import com.xuli.farm.po.PageBean;
 import com.xuli.farm.po.User;
 import com.xuli.farm.service.UserService;
 import com.xuli.farm.util.MailUtil;
@@ -13,7 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.beans.Transient;
+import java.util.List;
 
 
 @Service
@@ -51,7 +54,7 @@ public class UserServiceImpl implements UserService {
         queryUser.setStatus("Y");
         int count = userMapper.updateByPrimaryKey(queryUser);
 
-        return count==1;
+        return count == 1;
     }
 
     @Override
@@ -72,7 +75,19 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User queryUserById(int uid) {
-        return null;
+        User user = userMapper.selectByPrimaryKey(uid);
+        return user;
+    }
+
+    @Override
+    public PageInfo<User> queryUserAll(int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<User> users = userMapper.selectAll();
+        PageInfo<User> pageInfo = new PageInfo<User>(users);
+//        PageBean<User> pageBean = new PageBean<>();
+
+
+        return pageInfo;
     }
 
     @Override
@@ -82,11 +97,38 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Boolean updateUser(User user) {
-        return null;
+        User oldUser = userMapper.selectByPrimaryKey(user.getUid());
+        user.setType(oldUser.getType());
+        user.setPassword(oldUser.getPassword());
+        user.setType(oldUser.getCode());
+        user.setType(oldUser.getStatus());
+        int i = userMapper.updateByPrimaryKey(user);
+        if (i == 0) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     @Override
     public Boolean deleteUserById(Integer uid) {
+        int i = userMapper.deleteByPrimaryKey(uid);
+        if (i == 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    @Override
+    public List<User> getUserList(int pageNum, int pageSize) {
         return null;
     }
+
+    @Override
+    public List<User> selectAll() {
+        return userMapper.selectAll();
+    }
+
+
 }

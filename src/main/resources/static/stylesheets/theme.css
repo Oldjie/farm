@@ -439,11 +439,11 @@ a.block-heading:hover,
   line-height: 1.25em;
   padding: .75em 0em;
 }
-/*Gallery*/
-.gallery {
+/*news*/
+.news {
   text-align: center;
 }
-.gallery  > img {
+.news  > img {
   margin: .5em .5em .5em .5em;
 }
 .img-polaroid {

@@ -91,7 +91,7 @@ header{text-align: center;background: #fff;}
 /* ---------------------------------------------------------------------------- */
 .home-page{}
 .single-page{}
-.gallery-page{}
+.news-page{}
 .archive-page{}
 .contact-page{}
 
@@ -136,7 +136,7 @@ header{text-align: center;background: #fff;}
 #main-content{}
 #main-content .wrap-content{padding: 50px 0;}
 
-.gallery-page article{background: #f7f7f7;}
+.news-page article{background: #f7f7f7;}
 .single-post{}
 .single-post .wrap-post, .comments-are {background: #f7f7f7;padding:30px; position: relative;}
 .single-post .wrap-post {margin-bottom: 50px;}

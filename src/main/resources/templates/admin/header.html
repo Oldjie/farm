@@ -1,0 +1,104 @@
+<style type="text/css">
+    #line-chart {
+        height: 300px;
+        width: 800px;
+        margin: 0px auto;
+        margin-top: 1em;
+    }
+
+    .brand {
+        font-family: georgia, serif;
+    }
+
+    .brand .first {
+        color: #ccc;
+        font-style: italic;
+    }
+
+    .brand .second {
+        color: #fff;
+        font-weight: bold;
+    }
+</style>
+<div class="navbar">
+    <div class="navbar-inner">
+        <ul class="nav pull-right">
+
+            <li><a href="#" class="hidden-phone visible-tablet visible-desktop" role="button">Settings</a></li>
+            <li id="fat-menu" class="dropdown">
+                <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">
+                    <i class="icon-user"></i>
+                    <p th:text="${user.username}"/>
+                    <i class="icon-caret-down"></i>
+                </a>
+
+                <ul class="dropdown-menu">
+                    <li><a tabindex="-1" href="#">My Account</a></li>
+                    <li class="divider"></li>
+                    <li><a tabindex="-1" class="visible-phone" href="#">Settings</a></li>
+                    <li class="divider visible-phone"></li>
+                    <li><a tabindex="-1" href="loginOut.html">退出</a></li>
+                </ul>
+            </li>
+
+        </ul>
+        <a class="brand" href="index.html"><span class="first">滁州绿怡农家乐</span> <span class="second">后台管理系统</span></a>
+    </div>
+</div>
+
+<div class="sidebar-nav">
+
+
+    <a href="#dashboard-menu" class="nav-header" data-toggle="collapse"><i class="icon-user"></i>用户管理</a>
+    <ul id="dashboard-menu" class="nav nav-list collapse in">
+        <li><a href="users.html">用户列表</a></li>
+        <li><a href="feedback.html">用户反馈</a></li>
+    </ul>
+
+    <a href="#media-menu" class="nav-header" data-toggle="collapse"><i class="icon-magic"></i>素材管理<i
+            class="icon-chevron-up"></i></a>
+    <ul id="media-menu" class="nav nav-list collapse">
+        <li><a href="sign_in.html">Sign In</a></li>
+        <li><a href="sign_up.html">Sign Up</a></li>
+        <li><a href="reset-password.html">Reset Password</a></li>
+    </ul>
+    <a href="#article-menu" class="nav-header" data-toggle="collapse"><i class="icon-text-height"></i>文章管理<i
+            class="icon-chevron-up"></i></a>
+    <ul id="article-menu" class="nav nav-list collapse">
+        <li><a href="sign_in.html">Sign In</a></li>
+        <li><a href="sign_up.html">Sign Up</a></li>
+        <li><a href="reset-password.html">Reset Password</a></li>
+    </ul>
+
+    <a href="#dynamic-menu" class="nav-header collapsed" data-toggle="collapse"><i class="icon-asterisk"></i>农庄动态管理<i
+            class="icon-chevron-up"></i></a>
+    <ul id="dynamic-menu" class="nav nav-list collapse">
+        <li><a href="news.html">动态</a></li>
+        <li><a href="addNews.html">新增动态</a></li>
+    </ul>
+
+
+    <a href="#activities-menu" class="nav-header collapsed" data-toggle="collapse"><i class="icon-adjust"></i>户外活动<i
+        class="icon-chevron-up"></i></a>
+    <ul id="activities-menu" class="nav nav-list collapse">
+        <li><a href="outdoor_activities.html">活动列表</a></li>
+        <li><a href="add_activities.html">新增活动</a></li>
+    </ul>
+
+    <a href="#food-menu" class="nav-header collapsed" data-toggle="collapse"><i class="icon-facebook"></i>餐厅美食<i
+            class="icon-chevron-up"></i></a>
+    <ul id="food-menu" class="nav nav-list collapse">
+        <li><a href="outdoor_activities.html">美食列表</a></li>
+        <li><a href="add_food.html">新增美食</a></li>
+
+    </ul>
+    <a href="#product-menu" class="nav-header collapsed" data-toggle="collapse"><i class="icon-paper-clip"></i>农家产品<i
+            class="icon-chevron-up"></i></a>
+    <ul id="product-menu" class="nav nav-list collapse">
+        <li><a href="product.html">产品列表</a></li>
+        <li><a href="add_product.html">新增产品</a></li>
+        <li><a href="edit_product.html">产品编辑</a></li>
+    </ul>
+
+    <a href="about.html" class="nav-header"><i class="icon-question-sign"></i>关于</a>
+</div>

@@ -42,4 +42,9 @@
         SELECT * FROM tab_user WHERE username = #{username} and password = #{password}
     </select>
 
+    <select id="queryUserList" resultMap="User">
+      select * from user ;
+    </select>
+
+
 </mapper>

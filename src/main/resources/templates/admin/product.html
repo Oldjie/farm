@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>后台管理系统</title>
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link rel="stylesheet" type="text/css" href="../lib/bootstrap/css/bootstrap.css">
+
+    <link rel="stylesheet" type="text/css" href="../stylesheets/theme.css">
+    <link rel="stylesheet" href="../lib/font-awesome/css/font-awesome.css">
+
+    <script src="../lib/jquery-1.7.2.min.js" type="text/javascript"></script>
+
+
+    <link rel="shortcut icon" href="../assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
+</head>
+
+
+<body class="">
+
+<div id="header"></div>
+
+
+<div class="content">
+
+    <div class="header">
+
+        <h1 class="page-title">用户列表</h1>
+    </div>
+
+    <ul class="breadcrumb">
+        <li><a href="index.html">Home</a> <span class="divider">/</span></li>
+        <li class="active">Users</li>
+    </ul>
+
+    <div class="container-fluid">
+        <div class="row-fluid">
+
+            <div class="btn-toolbar">
+
+                <div class="btn-group">
+                </div>
+            </div>
+            <div class="well">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>产品名称</th>
+                        <th>产品价格</th>
+                        <th>图片路径</th>
+                        <th>创建日期</th>
+                        <th style="width: 26px;"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    <tr th:each="product :${products.list}">
+                        <td th:text="${product.id}"></td>
+                        <td th:text="${product.productName}"></td>
+                        <td th:text="${product.productPrice}"></td>
+                        <td th:text="${product.productImg}"></td>
+                        <td th:text="${product.created}"></td>
+                        <td>
+                            <a th:href="'user.html?uid=' + ${product.id}"><i class="icon-pencil"></i></a>
+                        </td>
+
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="pagination">
+                <ul>
+                    <li th:if="${products.hasPreviousPage}">
+                        <a th:href="'users.html?pageNum=' + ${products.prePage}" th:text="上一页"></a>
+                    </li>
+                    <!-- 中间页 -->
+                    <li th:each="pageNum:${#numbers.sequence(0, products.pages - 1)}">
+                        <a th:href="'users.html?pageNum=' + ${pageNum+1}" th:text="${pageNum + 1}"
+                           th:if="${pageNum+1 ne products.pageNum}"></a>
+                        <a th:href="'users.html?pageNum=' + ${pageNum+1}" th:text="${pageNum + 1}"
+                           th:if="${pageNum+1 eq products.pageNum}"
+                           th:style="'font-weight:bold;background: #6faed9;'"></a>
+                    </li>
+
+                    <!-- 下一页 -->
+                    <li th:if="${products.hasNextPage}">
+                        <a th:href="'users.html?pageNum=' + ${products.nextPage}" th:text="下一页"></a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="modal small hide fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                 aria-hidden="true">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h3 id="myModalLabel">Delete Confirmation</h3>
+                </div>
+                <div class="modal-body">
+                    <p class="error-text"><i class="icon-warning-sign modal-icon"></i>Are you sure you want to delete
+                        the user?</p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                    <button class="btn btn-danger" data-dismiss="modal">Delete</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<script src="../lib/bootstrap/js/bootstrap.js"></script>
+
+<script type="text/javascript" src="../js/include.js"></script>
+</body>
+</html>
+
+

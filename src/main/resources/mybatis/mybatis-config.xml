@@ -12,17 +12,17 @@
 
 
     <!--<plugins>-->
-        <!--&lt;!&ndash; 配置拦截器 &ndash;&gt;-->
-        <!--<plugin interceptor="com.github.pagehelper.PageInterceptor">-->
-            <!--&lt;!&ndash;配置分页插件实现类&ndash;&gt;-->
-            <!--<property name="dialect" value="com.github.pagehelper.PageHelper"/>-->
-        <!--</plugin>-->
+    <!--&lt;!&ndash; 配置拦截器 &ndash;&gt;-->
+    <!--<plugin interceptor="com.github.pagehelper.PageInterceptor">-->
+    <!--&lt;!&ndash;配置分页插件实现类&ndash;&gt;-->
+    <!--<property name="dialect" value="com.github.pagehelper.PageHelper"/>-->
+    <!--</plugin>-->
 
-        <!--&lt;!&ndash;配置通用mapper拦截器&ndash;&gt;-->
-        <!--<plugin interceptor="com.github.abel533.mapperhelper.MapperInterceptor">-->
-            <!--&lt;!&ndash;同意mapper接口&ndash;&gt;-->
-            <!--<property name="mappers" value="com.github.abel533.mapper.Mapper"></property>-->
-        <!--</plugin>-->
+    <!--&lt;!&ndash;配置通用mapper拦截器&ndash;&gt;-->
+    <!--<plugin interceptor="com.github.abel533.mapperhelper.MapperInterceptor">-->
+    <!--&lt;!&ndash;同意mapper接口&ndash;&gt;-->
+    <!--<property name="mappers" value="com.github.abel533.mapper.Mapper"></property>-->
+    <!--</plugin>-->
 
     <!--</plugins>-->
 
