@@ -56,7 +56,6 @@
                     <tr>
                         <th>#</th>
                         <th>标题</th>
-                        <th>图片路径</th>
                         <th>创建时间</th>
                         <th style="width: 26px;"></th>
                     </tr>
@@ -66,7 +65,6 @@
                     <tr th:each="activitie :${activities.list}">
                         <td th:text="${activitie.id}"></td>
                         <td th:text="${activitie.title}"></td>
-                        <td th:text="${activitie.activitiesImg}"></td>
                         <td th:text="${activitie.created}"></td>
                         <td>
                             <a th:href="'editActivities.html?uid=' + ${activitie.id}"><i class="icon-pencil"></i></a>

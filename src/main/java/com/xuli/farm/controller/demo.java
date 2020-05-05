@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class demo {
 
 //    @RequestMapping("/")
-//    public String index() {
-//        return "index.html";
+//    public String IndexContent() {
+//        return "IndexContent.html";
 //    }
 
     @Autowired

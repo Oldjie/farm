@@ -7,7 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-
+    <!-- 富文本编辑器 -->
+    <link rel="stylesheet" href="../kindeditor/themes/default/default.css"/>
+    <script charset="utf-8" src="../kindeditor/kindeditor-all.js"></script>
+    <script charset="utf-8" src="../kindeditor/lang/zh-CN.js"></script>
     <link rel="stylesheet" type="text/css" href="../lib/bootstrap/css/bootstrap.css">
 
     <link rel="stylesheet" type="text/css" href="../stylesheets/theme.css">
@@ -18,15 +21,10 @@
     <!-- Demo page code -->
 
     <style type="text/css">
-        #line-chart {
-            height: 300px;
-            width: 800px;
-            margin: 0px auto;
-            margin-top: 1em;
-        }
-
-        .brand {
-            font-family: georgia, serif;
+        .content {
+            width: 90%;
+            overflow: auto;
+            word-break: break-all;
         }
 
         .brand .first {
@@ -78,16 +76,22 @@
                 <div id="myTabContent" class="tab-content">
                     <div class="tab-pane active in" id="home">
                         <form id="saveForm" method="POST" action="JavaScript:void(0);">
-                            <input id="id" name="id" type="hidden" th:value="${activities.id}" class="input-xlarge">
+                            <input id="id" name="id" type="hidden" th:value="${activities.id}" class="input-xlarge"
+                                   required="required">
                             <label>标题</label>
-                            <input id="title" name="title" type="text" class="input-xlarge" th:value="${activities.title}">
-                            <label>正文</label>
-                            <textarea id="content" name="content" rows="10" cols="30" class="input-xlarge" th:utext="${activities.content}"></textarea>
-                            <label>图片路径</label>
-                            <input id="activitiesImg" name="activitiesImg" type="text" class="input-xlarge" th:value="${activities.activitiesImg}">
+                            <input id="title" name="title" type="text" class="input-xlarge"
+                                   th:value="${activities.title}" required="required">
+
+                            <!--<label>图片路径</label>-->
+                            <!--<input id="activitiesImg" name="activitiesImg" type="text" class="input-xlarge"-->
+                                   <!--th:value="${activities.activitiesImg}" required="required">-->
                             <label>跟新日期</label>
-                            <input id="created" name="created" type="date" class="input-xlarge" th:value="${activities.created}">
+                            <input id="created" name="created" type="date" class="input-xlarge"
+                                   th:value="${activities.created}" required="required">
                         </form>
+                        <label>内容</label>
+                        <textarea id="content" name="content" rows="50" cols="100" class="content"
+                                  th:utext="${activities.content}" required="required"></textarea>
                     </div>
                     <div class="tab-pane fade" id="profile">
                         <form id="tab2">
@@ -130,10 +134,29 @@
 <script type="text/javascript" src="../js/include.js"></script>
 <script>
 
+    var editor;
+    KindEditor.ready(function (K) {
+        editor = K.create('textarea[name="content"]', {
+            //是否允许浏览服务器已上传文件,默认是false
+            allowFileManager: true,
+            uploadJson: "/speech/uploadFile",
+            items: [
+                'source', '|', 'undo', 'redo', '|', 'preview', 'print', 'template', 'code', 'cut', 'copy', 'paste',
+                'plainpaste', 'wordpaste', '|', 'justifyleft', 'justifycenter', 'justifyright',
+                'justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', 'subscript',
+                'superscript', 'clearhtml', 'quickformat', 'selectall', '|', 'fullscreen', '/',
+                'formatblock', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold',
+                'italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|', 'image', 'multiimage',
+                'flash', 'media', 'insertfile', 'table', 'hr', 'emoticons', 'baidumap', 'pagebreak',
+                'anchor', 'link', 'unlink', '|', 'about'
+            ]
+        });
+    });
+
     function delUser() {
         $.post(
             "delActivities.html",
-            $("#saveForm").serialize(),
+            $("#saveForm").serialize() + "&content=" + editor.html(),
             function (resultINfo) {
                 if (resultINfo.flag) {
                     location.href = "outdoor_activities.html";
@@ -147,11 +170,35 @@
     }
 
     function _save() {
+        var formdata = $('#saveForm').serialize();
 
+        var array = formdata.split('&');
+        // var status = true
+        for (var i = 0; i < array.length; i++) {
+            var kwarr = array[i].split('=');
+            if (kwarr[0] === 'content') {
+                if (editor.html() === null || editor.html() === '') {
+                    alert('不能存在空值');
+                    // status = false
+                    return false;
+                }
+            } else {
+                if (kwarr[1] === null || kwarr[1] === '') {
+
+                    alert('不能存在空值');
+                    // status = false
+                    return false;
+                }
+            }
+
+        }
+        // console.log(data)
+
+        // if (status){
         //提交异步请求
         $.post(
-            "save_activities.html",
-            $("#saveForm").serialize(),
+            "updateActivities.html",
+            formdata + "&content=" + editor.html(),
             function (resultINfo) {
                 if (resultINfo.flag) {
                     location.href = "outdoor_activities.html";
@@ -162,6 +209,8 @@
             },
             "json"
         );
+        // }
+
     }
 </script>
 </body>

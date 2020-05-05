@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 public class FoodController {
     @Autowired
     private FoodServiceImpl foodService;
+
     @RequestMapping("admin/restaurant_food.html")
     public String food(Model model, @RequestParam(value = "pageNum", defaultValue = "1") int pageNum, @RequestParam(value = "pageSize", defaultValue = "5") int pageSize) {
         PageInfo<Food> pageBean = foodService.queryUserAll(pageNum, pageSize);
@@ -27,7 +28,7 @@ public class FoodController {
 
 
     @RequestMapping("admin/add_food.html")
-    public String addFood(){
+    public String addFood() {
         return "admin/add_food";
     }
 
@@ -43,10 +44,9 @@ public class FoodController {
     }
 
 
-
     @GetMapping("admin/editFood.html")
     public String editFoods(Model model, @RequestParam(value = "uid") int uid) {
-        Food  food = foodService.queryFoodById(uid);
+        Food food = foodService.queryFoodById(uid);
         model.addAttribute("food", food);
         return "admin/editFood";
 
@@ -60,5 +60,23 @@ public class FoodController {
         Boolean flag = foodService.deleteFoodById(food.getId());
         resultInfo = new ResultInfo(flag, null, null);
         return resultInfo;
+    }
+
+    @GetMapping("foods.html")
+
+    public String foods(Model model, @RequestParam(value = "pageNum", defaultValue = "1") int pageNum, @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
+        PageInfo<Food> foodPageInfo = foodService.queryUserAll(pageNum, pageSize);
+
+        model.addAttribute("foods", foodPageInfo);
+        return "home/foods";
+    }
+
+
+    @GetMapping("foodDetails.html")
+    public String activities(Model model, @RequestParam(value = "uid") int uid) {
+        Food food = foodService.queryFoodById(uid);
+        model.addAttribute("food", food);
+
+        return "home/foodDetails";
     }
 }

@@ -26,10 +26,7 @@ public class ActivitiesServiceImpl implements ActivitiesService {
         return pageInfo;
     }
 
-    @Override
-    public Boolean updateUser(Activities activities) {
-        return null;
-    }
+
 
     @Override
     public Boolean insertActivities(Activities activities) {
@@ -57,5 +54,16 @@ public class ActivitiesServiceImpl implements ActivitiesService {
     public Activities queryActivitiesById(int uid) {
         Activities activities = activitisMapper.selectByPrimaryKey(uid);
         return activities;
+    }
+
+    @Override
+    public Boolean updateActivities(Activities activities) {
+        int i = activitisMapper.updateByPrimaryKey(activities);
+
+        if (i == 0) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }

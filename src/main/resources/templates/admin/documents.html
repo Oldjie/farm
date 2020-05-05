@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script src="../lib/jquery-1.7.2.min.js" type="text/javascript"></script>
+
+<link rel="stylesheet" type="text/css" href="../lib/bootstrap/css/bootstrap.css">
+
+<!-- 富文本编辑器 -->
+<link rel="stylesheet" href="../kindeditor/themes/default/default.css"/>
+<script charset="utf-8" src="../kindeditor/kindeditor-all.js"></script>
+<script charset="utf-8" src="../kindeditor/lang/zh-CN.js"></script>
+
+
+<form name="saveForm" method="post" action="JavaScript:void(0);">
+    <div class="form-group">
+        <label>内容:</label>
+        <textarea name="content" type="text" class="form-control" value="${(productInfo.productName)!''}">
+     </textarea>
+    </div>
+    <button class="btn btn-primary" onclick="_save()"><i class="icon-save"></i> Save</button>
+
+
+</form>
+
+
+<script type="text/javascript">
+    var editor;
+    KindEditor.ready(function (K) {
+        editor = K.create('textarea[name="content"]', {
+            //是否允许浏览服务器已上传文件,默认是false
+            allowFileManager: true,
+            uploadJson: "/speech/uploadFile",
+            items: [
+                'source', '|', 'undo', 'redo', '|', 'preview', 'print', 'template', 'code', 'cut', 'copy', 'paste',
+                'plainpaste', 'wordpaste', '|', 'justifyleft', 'justifycenter', 'justifyright',
+                'justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', 'subscript',
+                'superscript', 'clearhtml', 'quickformat', 'selectall', '|', 'fullscreen', '/',
+                'formatblock', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold',
+                'italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|', 'image', 'multiimage',
+                'flash', 'media', 'insertfile', 'table', 'hr', 'emoticons', 'baidumap', 'pagebreak',
+                'anchor', 'link', 'unlink', '|', 'about'
+            ]
+        });
+    });
+
+    function _save() {
+        console.log(editor.html())
+        // editor.html('数据回显')
+
+
+    }
+
+    // function display() {
+    //     $.ajax({
+    //         'type': 'GET',
+    //         'url': '/IndexContent.php?g=Api&m=News&a=get_info&app_id=' + app_id,
+    //         'data': {id: 97},
+    //         'dataType': 'json',
+    //         success: function (msg) {
+    //             $('textarea[name="content"]').html(msg.data.info)
+    //             editor = KindEditor.create('textarea[name="content"]', {
+    //                 afterBlur: function () {
+    //                     this.sync();
+    //                 }
+    //             });
+    //         }
+    //
+    //     }
+    //
+    // }
+</script>
+
+</body>
+</html>

@@ -4,14 +4,9 @@ package com.xuli.farm.controller;
 import com.github.pagehelper.PageInfo;
 import com.xuli.farm.exception.UserNameOrPasswordErrorException;
 import com.xuli.farm.exception.UserNoActiveException;
-import com.xuli.farm.po.About;
-import com.xuli.farm.po.Feedback;
-import com.xuli.farm.po.ResultInfo;
-import com.xuli.farm.po.User;
-import com.xuli.farm.service.impl.AboutServiceImpl;
-import com.xuli.farm.service.impl.FeedbackServoceImpl;
-import com.xuli.farm.service.impl.NewsServiceImpl;
-import com.xuli.farm.service.impl.UserServiceImpl;
+import com.xuli.farm.po.*;
+import com.xuli.farm.service.IndexService;
+import com.xuli.farm.service.impl.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,6 +18,9 @@ import javax.servlet.http.HttpSession;
 @RequestMapping("/admin")
 
 public class AdminController {
+
+    @Autowired
+    private IndexServiceImpl indexService;
 
     @Autowired
     private UserServiceImpl userService;
@@ -95,6 +93,29 @@ public class AdminController {
     public String logOut(HttpSession session) {
         session.invalidate();
         return "admin/sign_in";
+    }
+
+    @GetMapping("decuments.html")
+    public String decuments() {
+        return "admin/documents";
+    }
+
+
+    @GetMapping("indexContent.html")
+    public String indexContent(Model model) {
+        IndexContent indexContent = indexService.queryIndexContentById(1);
+        model.addAttribute("indexContent",indexContent);
+        return "admin/indexContent";
+    }
+
+    @PostMapping("updateIndexContent.html")
+    @ResponseBody
+    public ResultInfo updateIndexContent(IndexContent indexContent) {
+        ResultInfo resultInfo = null;
+        indexContent.setId(1L);
+        Boolean flag  = indexService.updateContent(indexContent);
+        resultInfo = new ResultInfo(flag, null, null);
+        return resultInfo;
     }
 
 

@@ -10,17 +10,15 @@ public class Activities {
     private Integer id;
     private String title;
     private String content;
-    private String activitiesImg;
     private String created;
 
     public Activities() {
     }
 
-    public Activities(Integer id, String title, String content, String activitiesImg, String created) {
+    public Activities(Integer id, String title, String content , String created) {
         this.id = id;
         this.title = title;
         this.content = content;
-        this.activitiesImg = activitiesImg;
         this.created = created;
     }
 
@@ -48,13 +46,6 @@ public class Activities {
         this.content = content;
     }
 
-    public String getActivitiesImg() {
-        return activitiesImg;
-    }
-
-    public void setActivitiesImg(String activitiesImg) {
-        this.activitiesImg = activitiesImg;
-    }
 
     public String getCreated() {
         return created;

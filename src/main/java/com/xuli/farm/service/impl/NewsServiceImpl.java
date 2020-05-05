@@ -9,6 +9,9 @@ import com.xuli.farm.service.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -32,6 +35,10 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     public Boolean insertNews(News news) {
+        Date nowdate = new Date();
+        //转换时间格式
+        SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        news.setCreated(simpleDate.format(nowdate));
 
         int i = newsMppaer.insert(news);
 

@@ -57,7 +57,6 @@
                         <th>#</th>
                         <th>标题</th>
                         <th>副标题</th>
-                        <th>图片地址</th>
                         <th>创建时间</th>
                         <th style="width: 26px;"></th>
                     </tr>
@@ -68,7 +67,6 @@
                         <td th:text="${details.id}"></td>
                         <td th:text="${details.title}"></td>
                         <td th:text="${details.subTitle}"></td>
-                        <td th:text="${details.imgUrl}"></td>
                         <td th:text="${details.created}"></td>
                         <td>
                             <a th:href="'editNews.html?uid=' + ${details.id}"><i class="icon-pencil"></i></a>

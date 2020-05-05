@@ -8,6 +8,11 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
+    <!-- 富文本编辑器 -->
+    <link rel="stylesheet" href="../kindeditor/themes/default/default.css"/>
+    <script charset="utf-8" src="../kindeditor/kindeditor-all.js"></script>
+    <script charset="utf-8" src="../kindeditor/lang/zh-CN.js"></script>
+
     <link rel="stylesheet" type="text/css" href="../lib/bootstrap/css/bootstrap.css">
 
     <link rel="stylesheet" type="text/css" href="../stylesheets/theme.css">
@@ -18,16 +23,6 @@
     <!-- Demo page code -->
 
     <style type="text/css">
-        #line-chart {
-            height: 300px;
-            width: 800px;
-            margin: 0px auto;
-            margin-top: 1em;
-        }
-
-        .brand {
-            font-family: georgia, serif;
-        }
 
         .brand .first {
             color: #ccc;
@@ -38,6 +33,13 @@
             color: #fff;
             font-weight: bold;
         }
+
+        .productContent {
+            width: 90%;
+            overflow: auto;
+            word-break: break-all;
+        }
+
     </style>
 
 </head>
@@ -76,16 +78,21 @@
                     <div class="tab-pane active in" id="home">
                         <form id="saveForm" method="POST" action="JavaScript:void(0);">
                             <label>商品名称</label>
-                            <input id="productName" name="productName" type="text" class="input-xlarge">
+                            <input id="productName" name="productName" type="text" class="input-xlarge"
+                                   required="required">
                             <label>商品价格</label>
-                            <input id="productPrice" name="productPrice" type="text" class="input-xlarge">
-                            <label>商品图片</label>
-                            <input id="productImg" name="productImg" type="text" class="input-xlarge">
-                            <label>商品介绍</label>
-                            <textarea id="productContent" name="productContent" rows="10" cols="30" class="input-xlarge"></textarea>
+                            <input id="productPrice" name="productPrice" type="number" class="input-xlarge"
+                                   required="required">
+                            <!--<label>商品图片</label>-->
+                            <input id="productImg" name="productImg" type="hidden" class="input-xlarge"
+                                   required="required">
+
                             <label>跟新日期</label>
-                            <input id="created" name="created" type="date" class="input-xlarge">
+                            <input id="created" name="created" type="date" class="input-xlarge" required="required">
                         </form>
+                        <label>商品介绍</label>
+                        <textarea id="productContent" name="productContent" rows="50" cols="30" class="productContent"
+                                  required="required"></textarea>
                     </div>
                     <div class="tab-pane fade" id="profile">
                         <form id="tab2">
@@ -127,12 +134,30 @@
 
 <script type="text/javascript" src="../js/include.js"></script>
 <script>
+    var editor;
+    KindEditor.ready(function (K) {
+        editor = K.create('textarea[name="productContent"]', {
+            //是否允许浏览服务器已上传文件,默认是false
+            allowFileManager: true,
+            uploadJson: "/speech/uploadFile",
+            items: [
+                'source', '|', 'undo', 'redo', '|', 'preview', 'print', 'template', 'code', 'cut', 'copy', 'paste',
+                'plainpaste', 'wordpaste', '|', 'justifyleft', 'justifycenter', 'justifyright',
+                'justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', 'subscript',
+                'superscript', 'clearhtml', 'quickformat', 'selectall', '|', 'fullscreen', '/',
+                'formatblock', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold',
+                'italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|', 'image', 'multiimage',
+                'flash', 'media', 'insertfile', 'table', 'hr', 'emoticons', 'baidumap', 'pagebreak',
+                'anchor', 'link', 'unlink', '|', 'about'
+            ]
+        });
+    });
 
     function delUser() {
         var uid = $("#uid").val();
         $.post(
             "del_user",
-            $("#saveForm").serialize(),
+            $("#saveForm").serialize() + "&productContent=" + editor.html(),
             function (resultINfo) {
                 if (resultINfo.flag) {
                     location.href = "news.html";
@@ -146,11 +171,38 @@
     }
 
     function _save() {
+        var imgarr = editor.html()
+        var imgs = imgarr.match(/<img[^>]+>/g);
+        if (imgs){
+            $("#productImg").val(imgs[0])
+        }
+        else {
 
+            $("#productImg").val("")
+        }
+        var formdata = $('#saveForm').serialize();
+        var array = formdata.split('&');
+        for (var i = 0; i < array.length; i++) {
+            var kwarr = array[i].split('=');
+            if (kwarr[0] === 'content') {
+                if (editor.html() === null || editor.html() === '') {
+                    alert('不能存在空值');
+                    // status = false
+                    return false;
+                }
+            } else {
+                if (kwarr[1] === null || kwarr[1] === '') {
+
+                    alert('不能存在空值');
+                    // status = false
+                    return false;
+                }
+            }
+        }
         //提交异步请求
         $.post(
             "save_product.html",
-            $("#saveForm").serialize(),
+            formdata + "&productContent=" + editor.html(),
             function (resultINfo) {
                 if (resultINfo.flag) {
                     location.href = "product.html";
@@ -161,6 +213,7 @@
             },
             "json"
         );
+
     }
 </script>
 </body>

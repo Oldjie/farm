@@ -31,6 +31,15 @@ public class ActivitiesController {
         return "admin/add_activities";
     }
 
+    @PostMapping("admin/updateActivities.html")
+    @ResponseBody
+    public ResultInfo updateActivities(Activities activities) {
+        ResultInfo resultInfo = null;
+        Boolean flag = activitiesService.updateActivities(activities);
+        resultInfo = new ResultInfo(flag, null, null);
+        return resultInfo;
+
+    }
 
     @PostMapping("admin/save_activities.html")
     @ResponseBody
@@ -57,5 +66,21 @@ public class ActivitiesController {
         Boolean flag = activitiesService.deleteActivitiesById(activities.getId());
         resultInfo = new ResultInfo(flag, null, null);
         return resultInfo;
+    }
+
+    @GetMapping("activities.html")
+    public String archives(Model model, @RequestParam(value = "pageNum", defaultValue = "1") int pageNum, @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
+        PageInfo<Activities> activitiesPageInfo = activitiesService.queryUserAll(pageNum, pageSize);
+
+        model.addAttribute("activities", activitiesPageInfo);
+        return "home/activities";
+    }
+
+    @GetMapping("activitiesDetails.html")
+    public String activities(Model model, @RequestParam(value = "uid") int uid) {
+        Activities activities = activitiesService.queryActivitiesById(uid);
+        model.addAttribute("activities", activities);
+
+        return "home/activitiesDetails";
     }
 }

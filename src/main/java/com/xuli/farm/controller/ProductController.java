@@ -20,6 +20,7 @@ public class ProductController {
 
     @Autowired
     private ProductServiceImpl productService;
+
     @RequestMapping("admin/product.html")
     public String product(Model model, @RequestParam(value = "pageNum", defaultValue = "1") int pageNum, @RequestParam(value = "pageSize", defaultValue = "5") int pageSize) {
         PageInfo<Product> pageBean = productService.queryUserAll(pageNum, pageSize);
@@ -29,20 +30,19 @@ public class ProductController {
     }
 
     @RequestMapping("admin/add_product.html")
-    public String addProduct(){
+    public String addProduct() {
         return "admin/add_product";
     }
 
 
     @PostMapping("admin/save_product.html")
     @ResponseBody
-    public ResultInfo saveProduct(Product product){
+    public ResultInfo saveProduct(Product product) {
         ResultInfo resultInfo = null;
         Boolean flag = productService.insertProduct(product);
         resultInfo = new ResultInfo(flag, null, null);
         return resultInfo;
     }
-
 
 
     @GetMapping("admin/editProduct.html")
@@ -61,5 +61,22 @@ public class ProductController {
         Boolean flag = productService.deleteProductById(product.getId());
         resultInfo = new ResultInfo(flag, null, null);
         return resultInfo;
+    }
+
+    @GetMapping("products.html")
+
+    public String products(Model model, @RequestParam(value = "pageNum", defaultValue = "1") int pageNum, @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
+        PageInfo<Product> productPageInfo = productService.queryUserAll(pageNum, pageSize);
+
+        model.addAttribute("products", productPageInfo);
+        return "home/products";
+    }
+
+    @GetMapping("productDetails.html")
+    public String productDetails(Model model, @RequestParam(value = "uid") int uid) {
+        Product product = productService.queryProductById(uid);
+        model.addAttribute("product", product);
+
+        return "home/productDetails";
     }
 }

@@ -80,7 +80,7 @@ public class NewsController {
 
 
     @GetMapping("details.html")
-    public String user(Model model, @RequestParam(value = "uid") int uid) {
+    public String details(Model model, @RequestParam(value = "uid") int uid) {
         News news = newsService.queryUserById(uid);
         model.addAttribute("news", news);
 

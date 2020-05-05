@@ -3,9 +3,12 @@ package com.xuli.farm.controller;
 import com.github.pagehelper.PageInfo;
 import com.sun.org.apache.bcel.internal.generic.NEW;
 import com.xuli.farm.po.*;
+import com.xuli.farm.service.IndexService;
 import com.xuli.farm.service.impl.AboutServiceImpl;
 import com.xuli.farm.service.impl.FeedbackServoceImpl;
+import com.xuli.farm.service.impl.IndexServiceImpl;
 import com.xuli.farm.service.impl.NewsServiceImpl;
+import net.sf.jsqlparser.statement.create.table.Index;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,6 +26,8 @@ public class IndexController {
 
     @Autowired
     private AboutServiceImpl aboutService;
+    @Autowired
+    private IndexServiceImpl indexService;
 
     @Autowired
     private NewsServiceImpl newsService;
@@ -30,12 +35,16 @@ public class IndexController {
     private FeedbackServoceImpl feedbackServoce;
 
     @GetMapping("/")
-    public String index() {
+    public String index(Model model) {
+        IndexContent index = indexService.queryIndexContentById(1);
+        model.addAttribute("index", index);
         return "home/index";
     }
 
     @GetMapping("index.html")
-    public String index(Model model) {
+    public String indexHtml(Model model) {
+        IndexContent index = indexService.queryIndexContentById(1);
+        model.addAttribute("index", index);
         return "home/index";
     }
 
@@ -63,9 +72,6 @@ public class IndexController {
 
         return "home/register";
     }
-
-
-
 
 
     @GetMapping("contact.html")
@@ -101,6 +107,7 @@ public class IndexController {
 
         return "home/archive";
     }
+
 
     @ResponseBody
     @PostMapping("feedback")
