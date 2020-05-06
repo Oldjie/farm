@@ -11,4 +11,6 @@ public interface FoodService {
     Food queryFoodById(int uid);
 
     Boolean deleteFoodById(Integer id);
+
+    Boolean updateFood(Food food);
 }

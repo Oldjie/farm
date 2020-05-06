@@ -61,6 +61,17 @@ public class FoodController {
         resultInfo = new ResultInfo(flag, null, null);
         return resultInfo;
     }
+    @PostMapping("admin/updateFood.html")
+    @ResponseBody
+    public ResultInfo updateFoods(Food food) {
+        ResultInfo resultInfo = null;
+        Boolean flag = foodService.updateFood(food);
+        resultInfo = new ResultInfo(flag, null, null);
+        return resultInfo;
+    }
+
+
+
 
     @GetMapping("foods.html")
 

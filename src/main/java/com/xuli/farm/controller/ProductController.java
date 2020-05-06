@@ -39,11 +39,19 @@ public class ProductController {
     @ResponseBody
     public ResultInfo saveProduct(Product product) {
         ResultInfo resultInfo = null;
-        Boolean flag = productService.updateProduct(product);
+        Boolean flag = productService.insertProduct(product);
         resultInfo = new ResultInfo(flag, null, null);
         return resultInfo;
     }
 
+    @PostMapping("admin/updateProduct.html")
+    @ResponseBody
+    public ResultInfo updateProduct(Product product) {
+        ResultInfo resultInfo = null;
+        Boolean flag = productService.updateProduct(product);
+        resultInfo = new ResultInfo(flag, null, null);
+        return resultInfo;
+    }
 
     @GetMapping("admin/editProduct.html")
     public String editNews(Model model, @RequestParam(value = "uid") int uid) {

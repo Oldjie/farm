@@ -15,6 +15,7 @@ import java.util.List;
 public class FoodServiceImpl implements FoodService {
     @Autowired
     private FoodMapper foodMapper;
+
     @Override
     public PageInfo<Food> queryUserAll(int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
@@ -42,10 +43,16 @@ public class FoodServiceImpl implements FoodService {
     @Override
     public Boolean deleteFoodById(Integer id) {
         int i = foodMapper.deleteByPrimaryKey(id);
-        if (i==0){
+        if (i == 0) {
             return false;
-        }else {
+        } else {
             return true;
         }
+    }
+
+    @Override
+    public Boolean updateFood(Food food) {
+        int i = foodMapper.updateByPrimaryKey(food);
+        return i == 1;
     }
 }

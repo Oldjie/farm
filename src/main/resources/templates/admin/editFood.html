@@ -173,10 +173,9 @@
     function _save() {
         var imgarr = editor.html()
         var imgs = imgarr.match(/<img[^>]+>/g);
-        if (imgs){
+        if (imgs) {
             $("#foodImg").val(imgs[0])
-        }
-        else {
+        } else {
 
             $("#foodImg").val("")
         }
@@ -201,7 +200,7 @@
         }
         //提交异步请求
         $.post(
-            "save_food.html",
+            "updateFood.html",
             formdata + "&foodContent=" + editor.html(),
             function (resultINfo) {
                 if (resultINfo.flag) {
