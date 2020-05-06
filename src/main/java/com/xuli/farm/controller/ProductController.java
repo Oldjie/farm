@@ -39,7 +39,7 @@ public class ProductController {
     @ResponseBody
     public ResultInfo saveProduct(Product product) {
         ResultInfo resultInfo = null;
-        Boolean flag = productService.insertProduct(product);
+        Boolean flag = productService.updateProduct(product);
         resultInfo = new ResultInfo(flag, null, null);
         return resultInfo;
     }

@@ -50,4 +50,10 @@ public class ProductServiceImpl implements ProductService {
             return true;
         }
     }
+
+    @Override
+    public Boolean updateProduct(Product product) {
+        int i = productMapper.updateByPrimaryKey(product);
+        return i == 1;
+    }
 }

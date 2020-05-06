@@ -13,4 +13,6 @@ public interface ProductService {
     Product queryProductById(int uid);
 
     Boolean deleteProductById(Integer id);
+
+    Boolean updateProduct(Product product);
 }
