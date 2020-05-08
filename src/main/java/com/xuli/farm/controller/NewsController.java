@@ -52,7 +52,7 @@ public class NewsController {
     }
 
     @GetMapping("news.html")
-    public String show_news(Model model, @RequestParam(value = "pageNum", defaultValue = "1") int pageNum, @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
+    public String show_news(Model model, @RequestParam(value = "pageNum", defaultValue = "1") int pageNum, @RequestParam(value = "pageSize", defaultValue = "9") int pageSize) {
 
         PageInfo<News> news = newsService.queryUserAll(pageNum, pageSize);
 

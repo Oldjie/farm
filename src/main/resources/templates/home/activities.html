@@ -32,7 +32,7 @@
     <div id="cssmenu" class="align-center">
         <ul>
             <li><a href="index.html"><span>首页</span></a></li>
-            <li><a href="more.html"><span>农庄动态</span></a></li>
+            <li><a href="news.html"><span>农庄动态</span></a></li>
             <li class="active"><a href="activities.html"><span>戶外活动</span></a>
             <li ><a href="foods.html"><span>餐厅与美食</span></a>
             <li ><a href="products.html"><span>农家产品</span></a>
@@ -50,12 +50,10 @@
                 <div class="left">
                     <div class="header">
                         <span>活动</span>
-                        <!--<span class="jg">发布日期</span>-->
                     </div>
                     <ul>
                         <li th:each="details :${activities.list}">
 
-                            <!--<div class="img"><img th:src="${details.imgUrl}" alt=""></div>-->
                             <div class="text1">
                                 <p th:text="${details.title}"></p>
                                 <p class="price_num">
@@ -82,7 +80,7 @@
                         <div class="pagination">
                             <ul>
                                 <li th:if="${activities.hasPreviousPage}">
-                                    <a th:href="'activities.html?pageNum=' + ${activities.pages}" th:text="首页"></a>
+                                    <a th:href="'activities.html?pageNum=' + ${1}" th:text="首页"></a>
 
                                     <a th:href="'activities.html?pageNum=' + ${activities.prePage}" th:text="上一页"></a>
                                 </li>

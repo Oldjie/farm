@@ -50,42 +50,5 @@
     </div>
     
 </header>
-<!-- 头部 end -->
-<script type="text/javascript" src="../js/getParameter.js"></script>
-<script type="text/javascript">
-    //加载事件
-    $(function () {
-        //发出异步请求，获取分类列表数据
-        var url = "category/queryCategoryList";
-        var data = {action: "findAllCategory"};
-        var callback = function (jsonData) {
-            if (jsonData && jsonData.length > 0) {
-                //正常获取结果
-                //拼接导航菜单
-                var html = "<li class=\"nav-active\"><a href=\"index.html\">首页</a></li>";
-                //循环分类列表数据，拼接每个导航菜单
-                for (category of jsonData) {
-                    html += "<li><a href=\"route_list.html?cid=" + category.cid + "\">" + category.cname + "</a></li>";
-                }
-                html += "<li><a href=\"favoriterank.html\">收藏排行榜</a></li>";
-                //更新到具体位置
-                $(".navitem .nav").html(html);
-            } else {
-                //发生异常
-                alert(jsonData.errorMsg);
-            }
-        };
-        var type = "json";
-        $.post(url, callback, type);
 
 
-        //获取url上的rname,更新到搜索输入框里面
-        var rname = decodeURI(getParameter("rname"));
-        if (rname && rname != "null") {
-            //更新页面上
-            $("#content").val(rname);
-        }
-    });
-
-
-</script>

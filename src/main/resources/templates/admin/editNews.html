@@ -82,9 +82,9 @@
                             <input id="subTitle" name="subTitle" type="text" class="input-xlarge" th:value="${news.subTitle}" required="required">
 
                             <!--<label>一级图片</label>-->
-                            <!--<input id="imgUrl" name="imgUrl" type="text" class="input-xlarge" th:value="${news.imgUrl}" required="required">-->
+                            <input id="imgUrl" name="imgUrl" type="hidden" class="input-xlarge" th:value="${news.imgUrl}" required="required">
                             <!--<label>二级图片</label>-->
-                            <!--<input id="subImgUrl" name="subImgUrl" type="text" class="input-xlarge" th:value="${news.subImgUrl}" required="required">-->
+                            <input id="subImgUrl" name="subImgUrl" type="hidden" class="input-xlarge" th:value="${news.subImgUrl}" required="required">
                             <label>跟新日期</label>
                             <input id="created" name="created" type="date" class="input-xlarge" th:value="${news.created}" required="required">
                         </form>
@@ -167,6 +167,25 @@
     }
 
     function _save() {
+        var imgarr = editor.html()
+        var imgs = imgarr.match(/<img[^>]+>/g);
+        if (imgs){
+            if (imgs.length >1){
+                $("#imgUrl").val(imgs[0])
+                $("#subImgUrl").val(imgs[1])
+
+            }
+            else {
+                $("#imgUrl").val(imgs[0])
+                $("#subImgUrl").val(imgs[0])
+
+            }
+        }
+        else {
+
+            $("#imgUrl").val("<img src=\"http://127.0.0.1:80\\static/image\\ccb28a56-2ffa-4d5f-ae2d-4773c5ab7d2c.jpg\" alt=\"\" />")
+            $("#subImgUrl").val("<img src=\"http://127.0.0.1:80\\static/image\\ccb28a56-2ffa-4d5f-ae2d-4773c5ab7d2c.jpg\" alt=\"\" />")
+        }
         var formdata = $('#saveForm').serialize();
         var array = formdata.split('&');
         for (var i = 0; i < array.length; i++) {

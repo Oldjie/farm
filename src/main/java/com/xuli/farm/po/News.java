@@ -1,4 +1,5 @@
 package com.xuli.farm.po;
+
 import lombok.Data;
 
 import javax.persistence.Entity;
@@ -16,16 +17,20 @@ public class News implements Serializable {
     private String title;
     private String subTitle;
     private String content;
+    private String imgUrl;
+    private String subImgUrl;
     private String created;
 
     public News() {
     }
 
-    public News(Integer id, String title, String subTitle, String content, String created) {
+    public News(Integer id, String title, String subTitle, String content, String imgUrl, String subImgUrl, String created) {
         this.id = id;
         this.title = title;
         this.subTitle = subTitle;
         this.content = content;
+        this.imgUrl = imgUrl;
+        this.subImgUrl = subImgUrl;
         this.created = created;
     }
 
@@ -59,6 +64,22 @@ public class News implements Serializable {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
+    }
+
+    public String getSubImgUrl() {
+        return subImgUrl;
+    }
+
+    public void setSubImgUrl(String subImgUrl) {
+        this.subImgUrl = subImgUrl;
     }
 
     public String getCreated() {
